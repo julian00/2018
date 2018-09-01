@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Airplane( model, airCrewMin, airCrewMax, passengerCapacity, flightCeiling, cruisingSpeed, autonomy  ) 
+		{ 
+		  this.model = model;
+		  this.airCrewMin=airCrewMin;
+		  this.airCrewMax=airCrewMax;
+		  this.passengerCapacity=passengerCapacity;
+		  this.flightCeiling=flightCeiling;
+		  this.cruisingSpeed=cruisingSpeed;
+		  this.autonomy=autonomy;	 
+		}
+		 
+
+		Airplane.prototype.toString = function () 
+		{
+		  return this.model + "\nTripulacion minima: " + this.airCrewMin + "\nTripulacion maxima: " + this.airCrewMax + "\nCapacidad: " + this.passengerCapacity + " pasajeros" + "\nTecho de vuelo: " + this.flightCeiling +" Mts" + "\nVelocidad crucero: " + this.cruisingSpeed + " Km/h" + "\nAutonomia: " + this.autonomy + " Km";
+		};
+
+		Airplane.prototype.takeOff= function()
+		{
+			return "el " + this.model + " despego"; 
+		}
+
+		Airplane.prototype.toLand = function()
+		{
+			return "el " + this.model + " aterrizo"; 
+		}
+		 
+		// Usage:
+		 
+		var A380_800 = new Airplane( "Airbus A380-800", 18, 24, 555, 13000, 1050, 15200 );
+		var B737_800 = new Airplane( "Boeing 737-800B", 4, 6, 175, 12500, 828, 5700 );
+		var E190=new Airplane("Embraer 190",4,4,114,12500,829,4260)
+		 
+		console.log( A380_800.toString() );
+		console.log( B737_800.toString() );	
+		console.log( E190.toString());
+
+		console.log(E190.takeOff());
+		console.log(A380_800.takeOff());
+		console.log(E190.toLand());
+	</script>
+</body>
+</html>
