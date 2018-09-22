@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Lista Vue</title>
+	<script src = "https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<label>Nombre</label>
+		<br>
+		<input type="text"v-model="people.name">
+		<br>
+		<label>Edad</label>
+		<br>
+		<input type="text" v-model="people.age">
+		<br>
+		<label>Sexo F/M</label>
+		<br>
+		<input type="text" v-model="people.gender">
+		<br>
+		<button @click="addPeople()">Agregar</button>
+		<br>
+		<br>
+		<button @click="filterMale">Mostrar Varones</button>
+		<button @click="filterFemale">Mostrar Mujeres</button>
+		<button @click="showAll">Mostrar Todos</button>
+
+		<ul v-if="show==='all'">
+			<li v-for="(people,index) in persons":key="index">
+				<a @click="deletePeople(people.id)">{{people.name}} {{people.age}} {{people.gender}}</a>
+			</li>
+		</ul>
+
+		<ul v-else>
+			<li v-for="(people,index) in aux":key="index">
+				<a @click="deletePeople(people.id)">{{people.name}} {{people.age}} {{people.gender}}</a>
+			</li>
+		</ul>
+
+	</div>
+	<script type="text/javascript">
+		var app =new Vue({
+			el:'#app',
+			data:
+			{
+				persons:[],
+				aux:[],
+				startID:0,
+				people:
+				{
+					name:'',
+					age:'',
+					gender:'',
+				},
+				show:'all'
+			},
+			methods:
+			{
+				addPeople()
+				{
+					this.persons.push(
+					{
+						id:this.startID++,
+						name:this.people.name,
+						age:this.people.age,
+						gender:this.people.gender
+					});
+					this.persons.name='';
+					this.persons.age='';
+					this.persons.gender='';
+				},
+				deletePeople(id)
+				{
+					this.persons=this.persons.filter(people=>people.id!==id);
+					this.aux=this.aux.filter(people=>people.id!==id);
+				},
+				filterMale()
+				{
+					this.show='male';
+					this.aux=this.persons;
+					this.aux=this.persons.filter(people=>people.gender.toUpperCase()==='M')
+				},
+				filterFemale()
+				{
+					this.show='female';
+					this.aux=this.persons;
+					this.aux=this.persons.filter(people=>people.gender.toUpperCase()==='F')
+				},
+				showAll()
+				{
+					this.show='all';
+				}
+			},
+			computed:
+			{}
+		})
+	</script>
+	
+</body>
+
+
+</html>
