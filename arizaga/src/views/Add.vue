@@ -1,0 +1,142 @@
+<template>
+  <div class="add">
+    <!--form class="formulario">
+        <h1>Ingresar datos de las personas</h1>
+        <label>Nombre</label>
+        <input type="text" autofocus placeholder="Ingrese su nombre" v-model="person.name">
+        <br>
+        <br>
+        <label>Edad</label>
+        <input type="number" v-model="person.age" min="0">
+        <br>
+        <br>
+        <label>Sexo</label>
+       
+        <select placeholder="Ingrese su Sexo" v-model="person.gender">
+            <option value="F">F</option>
+            <option value="M">M</option>
+        </select>
+        <br>
+        <br>
+     
+        <button @click="addPeople">Agregar</button>
+    </form-->    
+    <formAdd></formAdd> 
+    {{this.message}}
+  </div>
+</template>
+
+
+ <script>
+//import router from "@/router"
+import PersonService from '@/services/personService'
+import formAdd from '@/components/FormAdd.vue'
+
+export default {
+    name: 'add',
+    data() {
+        return {
+            show: false,
+            message:"",
+            errors: [],
+            person: {
+                id: 0,
+                name: "",
+                age: 0,
+                gender: "Masculino"
+            }
+        }
+    },
+    components: {
+        formAdd
+    },
+    methods: {
+		addPeople()
+		{
+            if(this.formOk())
+            {
+                //debugger;
+                PersonService.savePerson(this.person)
+                .then((message) => {
+                    this.message=message;
+                    this.show=true;
+                })
+                .catch((err) =>{
+                    this.errors.push(err);
+                    this.show=true;
+                });
+                //router.push("/");
+                /*PersonService.getOne(this.$route.params.id)
+                .then((person) => {
+                    this.person = person;
+                                this.loading = false;
+                })
+                .catch((err) => {
+                    this.errors.push(err);
+                    this.loading = false;
+                });*/
+            }
+            else
+                {
+                    {{this.message}}
+                }
+                //alert("salame");
+        },
+        clearForm()
+        {
+            this.person.name='';
+            this.person.age=0;
+        },
+        formOk()
+        {
+            if(this.person.name)
+                return true;
+        },
+        
+    }
+}
+        
+ /*
+        agregarPersona()
+				{
+		           	this.personas.push(Object.assign({}, this.persona));
+		           	let personasText = JSON.stringify(this.personas);
+		           	localStorage.setItem("contactos", personasText);
+		           	this.limpiarPersona(); 
+					this.mensaje=true;
+				},
+ 				cargarPersona(person)
+				{
+		            this.persona.nombre = person.nombre;
+		            this.persona.apellido = person.apellido;
+		            this.persona.direccion = person.direccion;
+		            this.persona.telefono = person.telefono;
+		            this.persona.mail = person.mail;
+		            this.persona.sexo = person.sexo;
+		        },
+ 				borrarPersona(person)
+				{
+	                let aux= this.cargarPersona(person, this.personas);
+	                while(this.personas[this.buscarIndice()])
+	                    pos++;
+	                this.personas.splice(pos,1);
+	                if(this.personas.length == 0)
+	                    localStorage.clear();
+	                else
+	                {
+	                    personasText = JSON.stringify(this.personas);
+	                    localStorage.setItem("contactos", personasText);
+	                }
+		        },
+ 				
+ 				cambiarVista(vista)
+				{
+					this.vista=vista;
+					this.mensaje=false;
+				},
+ 				cerrarMensaje()
+				{
+					this.mensaje=false;
+				},
+				*/
+ </script>
